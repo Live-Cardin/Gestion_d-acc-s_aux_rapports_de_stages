@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> offre des emplois</title>
+  {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" {% endcomment %}
+    {% comment %} integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> {% endcomment %}
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <div class="row mb-5">
+          <div class="col-md-5">
+            <h2 class="text-white bg-green text-centre p-3">Ajouter un rapport</h2>
+
+          </div>
+          <br>
+    
+          {% comment %} <form action="/insert" method="post"> {% csrf_token %}
+            <div class="form-group col-md-5 mt-2">
+                
+    
+              <input type="text" class="form-control" placeholder="Entrer le sujet" name="sujet" required>
+            </div>
+    
+            <div class="form-group col-md-5 mt-2">
+    
+              <input type="files" class="form-control" placeholder="Entrer le pdf" name="rapport_pdf" required>
+            </div>
+            <div class="form-group col-md-5 mt-2">
+    
+              <input type="text " class=" form-control" placeholder="Entrer le nom du departement" name="departement " required>
+            </div>
+            <div class="form-group col-md-5 mt-2">
+    
+              <input type="date" class="form-control" placeholder="Entrer la date defendu" name="date_defendu " required>
+            </div>
+            
+            <div class="form-group col-md-5 mt-2">
+    
+              <input type="text" class=" form-control" placeholder="choisir le personnel " name="personnel " required>
+            </div>
+           
+    
+            <div class="d-grid col-md-5 mt-4 mb-5">
+              <button class="btn btn-danger" type="ajout">créer</button>
+    
+            </div>
+          </form> {% endcomment %}
+        </div>
+        {% block content %}
+        <div class='container my-5'>
+          <h1> Bienvenue Sur notre application</h1>
+          <p>vous pouvez ajouter un nouveau rapport ci-dessous</p>
+          <form action="" method="post"> {% csrf_token %}
+            <div class="form-group col-md-5 mt-2">
+    
+              <input type="text " class="form-control" placeholder="Entrer le sujet" name="sujet" required>
+            </div>
+    
+            <div class="form-group col-md-5 mt-2">
+    
+              <input type="file" class="form-control" placeholder="Entrer le rapport pdf" name="rapport_pdf " required>
+            </div>
+            <div class="form-group col-md-5 mt-2">
+    
+              <input type="text " class=" form-control" placeholder="Entrer le nom du departement" name="departement " required>
+            </div>
+            <div class="form-group col-md-5 mt-2">
+    
+              <select class='form-control' id='rapport'>
+                <option value={{rapport.personnel}}>cardin</option>
+
+              </select>
+            <div class="form-group col-md-5 mt-2">
+    
+              <input type="date" class=" form-control" placeholder="Entrer la date_defendu" name="date_defendu" required>
+            </div>
+    
+            <div class="d-grid col-md-5 mt-4">
+              <button class="btn btn-danger" type="ajout">créer</button>
+    
+            </div>
+          </form>
+         
+
+        </div>
+    <h1> LISTES DES RAPPORTS</h1>
+    <ul>
+        {%for rapport in rapports%}
+        <li>
+            <h2>{{rapport.sujet}}</h2>
+            <p>{{rapport.rapport_pdf}}</p>
+        </li>
+        {% endfor %}
+    </ul>
+     {% endblock %}
+    
+      </div>
+    {% comment %} {% extends "base.html" %} {% endcomment %}
+    
+</body>
+</html>
