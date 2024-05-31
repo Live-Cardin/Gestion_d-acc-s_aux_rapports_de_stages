@@ -7,6 +7,8 @@ from django.shortcuts import render
 from django.contrib.auth import login, authenticate  # import des fonctions login et authenticate
 
 from django import forms
+
+from .forms import RapportForm
 from .models import Rapport
 
 def login_page(request):
@@ -36,13 +38,17 @@ def rapport_list(request):
     return render(request,'home.html',{'rapports':rapports})
 
 
-def home(request):
-    if request.method=='POST':
-        form=Rapport_form(request.POST)
+
+def rapport_create(request):
+    if request.method == 'POST':
+        form = RapportForm(request.POST, request.FILES)
         if form.is_valid():
-                rapport=form.save(commit=False)
-                rapport.save()
-                return redirect('/home')
+            form.save()
+            return redirect('rapport_list')
     else:
-        form=Rapport_form()
-        return render(request,'home.html',{'form':form})
+        form = RapportForm()
+    return render(request, 'rapport_form.html', {'form': form})
+
+def rapport_list(request):
+    rapports = Rapport.objects.all()
+    return render(request, 'rapport_list.html', {'rapports': rapports})

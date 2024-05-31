@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    
+{% block content %}
+<h1>Rapport Form</h1>
+<header>
+    <div class="collapse bg-dark" id="navbarHeader">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 col-md-7 py-4">
+            <h4 class="text-white">À propos</h4>
+            <p class="text-muted">Ajoutez des informations sur l'album ci-dessous, sur l'auteur ou sur tout autre contexte. Faites quelques phrases pour que les gens puissent récupérer quelques informations informatives. Ensuite, associez-les à certains sites de réseaux sociaux ou à vos coordonnées.</p>
+          </div>
+          <div class="col-sm-4 offset-md-1 py-4">
+           
+            
+            <button>
+            <a href="#" type="submit" class="btn btn-info" > se deconnecter</a>
+            </button>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+      <div class="container">
+        <a href="#" class="navbar-brand d-flex align-items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          <strong>CardinApp</strong>
+        </a>
+        <ul class="nav nav-underline">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          </li>
+          
+            <a href="/connection" type="submit" class="btn btn-info" > se connecter</a> 
+  
+            <a href="#" type="submit" class="btn btn-info" > créer un compte</a>
+            
+        </ul>
+        
+      </div>
+    </div>
+  </header>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        <label for="sujet">Sujet:</label>
+        <input type="text" id="sujet" name="sujet" value="{% if rapport %}{{ rapport.sujet }}{% endif %}">
+    </div>
+    <div>
+        <label for="rapport_pdf">Rapport PDF:</label>
+        <input type="file" id="rapport_pdf" name="rapport_pdf">
+    </div>
+    <div>
+        <label for="departement">Département:</label>
+        <select id="departement" name="departement">
+            {% for departement in departements %}
+            <option value="{{ departement.id }}" {% if rapport and rapport.departement.id == departement.id %}selected{% endif %}>{{ departement.nom }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label for="date_defendu">Date de soutenance:</label>
+        <input type="datetime-local" id="date_defendu" name="date_defendu" value="{% if rapport %}{{ rapport.date_defendu|date:'Y-m-d\TH:i' }}{% endif %}">
+    </div>
+    <button type="submit">Enregistrer</button>
+</form>
+{% endblock %}
